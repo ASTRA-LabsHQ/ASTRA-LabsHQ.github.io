@@ -16,7 +16,7 @@ timezone: America/New_York
 
 title: ASTRA Labs # the main title
 
-tagline: Advanced Security, Threat Research, and Analysis # it will display as the subtitle
+tagline: Advanced Security Threat Research and Analysis # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   ASTRA Labs is a platform advancing malware analysis and reverse engineering through write-ups, blogs, and videos. We uncover the workings of malicious
