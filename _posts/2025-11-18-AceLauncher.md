@@ -103,16 +103,14 @@ If we follow the path referenced in the targets of the two .lnk files dropped on
 
 All of the files listed are in a SQLite format. The "History" file contains all of the victims browswer history, downloaded files, and much more. The names of the other files explain their purpose.
 
-That was as far as I could get with my current skillset, so now onto the second file!
+That was as far as I could get with my current skillset. As I stated before, if you are up to the challenge and can gain a better understanding of what the first file does please reach out! I'd love to update this post with more information and will obviously credit your findings!
 
-
-
-
-
-
+Onto the second file!
 
 
 ## AceLauncher.exe - Second Stage
+
+Things get more interesting with this sample. Since the executable is a .NET binary we can throw it into DnSpy and gain a much better understanding of what's going on internally. Before we do that though, I decided to use one of my favorite tools for quick malware triage, [capa](https://cloud.google.com/blog/topics/threat-intelligence/capa-automatically-identify-malware-capabilities). 
 
 
 
