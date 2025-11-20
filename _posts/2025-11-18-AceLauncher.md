@@ -25,8 +25,36 @@ A malware campaign known as Tampered Chef/EvilAI started to be tracked in June o
 - PDF Editor
 - Recipe Lister
 
+## AceLauncher
 
-## AceLauncher.exe (Installer) - First Stage
+Using [Any.Run](https://any.run/) we can navigate to AceLauncher[.]com and view the landing page along with some other pages on the website.
+
+![AceLauncher Landing Page](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/LandingPage.png)
+
+In short, AceLauncher is a claiming to be a browser productivity tool. They will download a chromium based browser, give you a toolbar that isn't very helpful, and all they ask for in exchange is your browser credentials! What a great deal!
+
+I've also included their "Features" page. While I don't agree with their actions I think we can all agree that the website is put together very well and can absolutely be convincing to someone that is less experienced with computers. 
+
+![AceLauncher Features Page](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/AceLauncherFeatures.png)
+
+But hey, they mention that they're an authorized distributor of Norton and McAfee antivirus software and under their FAQ section they state they're NOT malware. So it must be safe!
+
+![Mention of Being Authorized AV Dealer](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/NOTMalware.png)
+
+
+
+## AceLauncher.exe ([Installer](https://bazaar.abuse.ch/sample/ca53fabc32fc7b9d0441806ccf239b16644a75c5ad7104db640e2ec2338c29c8/)) - First Stage
+
+The first file we'll analyze is the installer. Admittedly I was not able to make it very far in the analysis of this sample. A majority of the information gathered on this campaign comes from the second sample we'll analyze later in the post. If you enjoy malware analysis feel free to download the [sample](https://bazaar.abuse.ch/sample/ca53fabc32fc7b9d0441806ccf239b16644a75c5ad7104db640e2ec2338c29c8/) and let me know what you find!
+
+Using DIE (Detect It Easy) we can see that the installer is written in Delphi.
+ ![DIE Output](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/DIE%20results.png)
+
+Executing the installer spawns the following installation screen
+![Ace Launcher Installer](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/AceLauncherInstallerOne.png)
+
+
+
 
 
 ## AceLauncher.exe - Second Stage
