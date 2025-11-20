@@ -39,19 +39,74 @@ I've also included their "Features" page. While I don't agree with their actions
 
 But hey, they mention that they're an authorized distributor of Norton and McAfee antivirus software and under their FAQ section they state they're NOT malware. So it must be safe!
 
-![Mention of Being Authorized AV Dealer](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/NOTMalware.png)
+![FAQ - We're not Malware!](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/NOTMalware.png)
 
+I was highly suspicious that this website was quickly put together with the use of AI whether that be vibe coding the website and using an LLM to generate all of the text on the website. I copied two paragraphs of text from their website and input them into zerogpt. zerogpt returned a 94.7% chance it was written using an LLM. That confirms that suspicion and makes it undeniable that threat actors are levering LLMs to stand up infrastructure faster and create more convincing landing pages. 
+
+![zerogpt result](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/AIGPT.png)
+
+Now, lets get into the analysis!
 
 
 ## AceLauncher.exe ([Installer](https://bazaar.abuse.ch/sample/ca53fabc32fc7b9d0441806ccf239b16644a75c5ad7104db640e2ec2338c29c8/)) - First Stage
 
-The first file we'll analyze is the installer. Admittedly I was not able to make it very far in the analysis of this sample. A majority of the information gathered on this campaign comes from the second sample we'll analyze later in the post. If you enjoy malware analysis feel free to download the [sample](https://bazaar.abuse.ch/sample/ca53fabc32fc7b9d0441806ccf239b16644a75c5ad7104db640e2ec2338c29c8/) and let me know what you find!
+The first file we'll analyze is the installer. Admittedly, I was not able to make it very far in the analysis of this sample. A majority of the information gathered on this campaign comes from the second sample we'll analyze later in the post. If you enjoy malware analysis feel free to download the [sample](https://bazaar.abuse.ch/sample/ca53fabc32fc7b9d0441806ccf239b16644a75c5ad7104db640e2ec2338c29c8/) and let me know what you find!
+
+After downloading the installer from the main landing page of the website, we're greeted with an error message. This error message spawns because the certificate the malware was signed with was revoked. If you're interested in learning more about how software certificates can be abused, check out [Cert Central](https://certcentral.org/training).
+
+![Landing Page Download](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/DownloadFromLandingPage.png)
+
+I was not able to find a workaround to download the file because the certificate was revoked, but I was able to pull a sample from Malware Bazaar. That is the sample we'll be analyzing moving forward. It's worth noting that if the signature was still valid a victim would be able to download and execute the binary from the website. 
+
+Viewing the signature details we can see that the executable was signed by Sunstream Labs (Capital Intellect Inc.).
+
+![Digital Signature that was revoked](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/Signature.png)
+
+
 
 Using DIE (Detect It Easy) we can see that the installer is written in Delphi.
  ![DIE Output](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/DIE%20results.png)
 
-Executing the installer spawns the following installation screen
+#### Executing the installer
 ![Ace Launcher Installer](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/AceLauncherInstallerOne.png)
+
+Although there were errors while working through the installation of the malware as shown below, the malware still successfully installed and those errors could be used to extract IOCs from the sample. 
+
+The first error indicated a CreateProcess failure in the Temp directory. This mini_installer.exe file will be included as an IOC.
+
+![Mini_Installer.exe IOC](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/Error1.png)
+
+The second error is a bit more telling and indicates the existence of an autoupdater for the executable. This will also be logged as an IOC.
+
+![AutoUpdate.exe IOC](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/Error2.png)
+
+After installation two .lnk files were dropped onto the desktop. 
+
+![Two .lnk files dropped on Desktop](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/TwoLNKFiles.png)
+
+#### AceLauncher.lnk properties:
+![AceLauncher.lnk Properties](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/AceLauncherLNKProperties.png)
+
+Target: 
+`C:\Users\{username}\AppData\Local\AceLauncherDock\current\AceLauncher.exe AceLauncher`
+
+#### Web.lnk properties:
+![AceLauncher.lnk Properties](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/WebLNKProperties.png)
+
+Target: 
+`C:\Users\{username}\AppData\Local\AceLauncher\Application\AceLauncher.exe`
+
+### Following the crumbs..
+If we follow the path referenced in the targets of the two .lnk files dropped onto the desktop we come across something very interesting. Within the \AppData\Local\AceLauncher directory we can see a "User Data" directory. The User Data directory contains a Default folder, a "fresh test" file, and a "Local State" file. Navigating to the Default folder we can begin to figure out the objective of this malware campaign. 
+
+![Folder Contents](/assets/pictures/Blogs/What'sCookin-TamperedChefAceLauncher/FolderContents.png)
+
+All of the files listed are in a SQLite format. The "History" file contains all of the victims browswer history, downloaded files, and much more. The names of the other files explain their purpose.
+
+That was as far as I could get with my current skillset, so now onto the second file!
+
+
+
 
 
 
