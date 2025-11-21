@@ -1,6 +1,6 @@
 ---
 title: "What’s Cookin’ in TamperedChef’s Kitchen? A Peek Into the Campaign’s Latest Activity"
-date: 2025-11-18 3:54:00 -0500
+date: 2025-11-20 3:54:00 -0500
 categories: [Malware Analysis, TamperedChef, AceLauncher]
 tags: [malware analysis, guide, static analysis, TamperedChef, AceLauncher]
 description: "A Technical Analysis of Tampered Chef and AceLauncher.exe"
