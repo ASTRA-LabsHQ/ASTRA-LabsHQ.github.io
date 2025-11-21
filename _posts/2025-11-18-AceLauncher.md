@@ -179,6 +179,8 @@ This analysis wasn't as thorough or technical as I would have liked it to be, bu
 - chrome-extension[:]//ecfcoejjilmbbeleepnmfhnmoeclakjh/
 - chrome-extension[:]//oobelncjpkioeencmnochfgbjlilmlcfg/
 - chrome-extension[:]//mljdfgjklelfkcofndhmflkkilmlfgna/
+- \is-91ARC.tmp\mini_installer.exe
+- \AceLauncherAutoUpdate\AcelauncherAutoUpdate.exe
 - **Registry Key** com.acelauncher.dock
 
 ## Further reading into TamperedChef
